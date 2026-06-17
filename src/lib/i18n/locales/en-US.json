@@ -1,0 +1,25 @@
+{
+  "app": {
+    "title": "Watermelon Sound Checker",
+    "tagline": "Tap and listen for sweetness",
+    "subtitle": "Tap the watermelon, and the system will judge sweetness from the sound.",
+    "micHint": "Microphone permission is required to record."
+  },
+  "action": {
+    "start": "Start Detection",
+    "finish": "Finish Detection",
+    "analyzing": "Analyzing",
+    "login": "Sign In"
+  },
+  "card": {
+    "autoAnalyze": "Auto-analyze after tapping",
+    "description": "Identify sound frequency and evaluate watermelon sweetness",
+    "sweetnessIndex": "Sweetness Index"
+  },
+  "status": {
+    "tapToStart": "Tap the watermelon to start",
+    "recording": "Listening, tap finish when done",
+    "analyzing": "Analyzing the knock sound",
+    "tryAgain": "Tap again to re-detect"
+  }
+}

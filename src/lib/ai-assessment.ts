@@ -1,3 +1,8 @@
+import { ai } from "@eazo/sdk";
+import type { AnalysisResult } from "./audio-analysis";
+
+ai.configure({ privateKey: process.env.EAZO_PRIVATE_KEY! });
+
 const WATERMELON_SYSTEM_PROMPT = `
 你是“敲瓜声成熟度评估器”，只根据音频特征给出轻量、谨慎的西瓜成熟评分。
 
@@ -18,54 +23,61 @@ const WATERMELON_SYSTEM_PROMPT = `
 - 不要承诺一定甜，只说“概率”“倾向”“建议复测”。
 `.trim();
 
-export async function getAiAssessment({ features, heuristic }) {
-  if (!process.env.OPENAI_API_KEY) {
-    return { ...heuristic, aiUsed: false };
-  }
-
-  const response = await fetch("https://api.openai.com/v1/responses", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      model: process.env.OPENAI_MODEL || "gpt-5.5",
-      reasoning: { effort: "low" },
-      instructions: WATERMELON_SYSTEM_PROMPT,
-      input: JSON.stringify({
-        features,
-        heuristic,
-        desiredShape: {
-          score: "number",
-          label: "string",
-          tagline: "string",
-          summary: "string",
-          reasons: ["string"],
-          tips: ["string"],
-        },
-      }),
-      max_output_tokens: 450,
-    }),
-  });
-
-  if (!response.ok) {
-    const message = await response.text();
-    throw new Error(`AI 请求失败：${response.status} ${message.slice(0, 160)}`);
-  }
-
-  const data = await response.json();
-  const text = data.output_text || collectOutputText(data);
-  const aiResult = normalizeAiResult(JSON.parse(extractJson(text)));
-
-  return {
-    ...heuristic,
-    ...aiResult,
-    aiUsed: true,
-  };
+export interface AiAssessment {
+  score: number;
+  label: string;
+  tagline: string;
+  summary: string;
+  reasons: string[];
+  tips: string[];
+  aiUsed: boolean;
+  aiError?: string;
 }
 
-function normalizeAiResult(result) {
+export async function getAiAssessment(analysis: AnalysisResult): Promise<AiAssessment> {
+  try {
+    const response = await ai.chat({
+      model: "deepseek.v3.1",
+      messages: [
+        { role: "system", content: WATERMELON_SYSTEM_PROMPT },
+        {
+          role: "user",
+          content: JSON.stringify({
+            features: analysis.features,
+            heuristic: analysis.heuristic,
+            desiredShape: {
+              score: "number",
+              label: "string",
+              tagline: "string",
+              summary: "string",
+              reasons: ["string"],
+              tips: ["string"],
+            },
+          }),
+        },
+      ],
+      max_tokens: 600,
+    });
+
+    const text = response.choices[0]?.message?.content || "";
+    const aiResult = normalizeAiResult(JSON.parse(extractJson(text)));
+
+    return {
+      ...analysis.heuristic,
+      ...aiResult,
+      aiUsed: true,
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    return {
+      ...analysis.heuristic,
+      aiUsed: false,
+      aiError: message,
+    };
+  }
+}
+
+function normalizeAiResult(result: Record<string, unknown>) {
   return {
     score: clamp(Math.round(Number(result.score) || 0), 0, 100),
     label: String(result.label || "声学评分"),
@@ -76,20 +88,12 @@ function normalizeAiResult(result) {
   };
 }
 
-function normalizeList(value, limit) {
+function normalizeList(value: unknown, limit: number): string[] {
   if (!Array.isArray(value)) return [];
   return value.map((item) => String(item).trim()).filter(Boolean).slice(0, limit);
 }
 
-function collectOutputText(data) {
-  return (data.output || [])
-    .flatMap((item) => item.content || [])
-    .map((content) => content.text || "")
-    .join("\n")
-    .trim();
-}
-
-function extractJson(text) {
+function extractJson(text: string): string {
   const trimmed = String(text || "").trim();
   if (trimmed.startsWith("{")) return trimmed;
 
@@ -98,7 +102,7 @@ function extractJson(text) {
   return match[0];
 }
 
-function clamp(value, min, max) {
+function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
 }
 

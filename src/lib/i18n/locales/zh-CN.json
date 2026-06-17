@@ -1,0 +1,25 @@
+{
+  "app": {
+    "title": "听瓜",
+    "tagline": "敲一下，听听甜度",
+    "subtitle": "轻敲西瓜，系统会根据声音判断甜度。",
+    "micHint": "需要麦克风权限才能录音。"
+  },
+  "action": {
+    "start": "开始检测",
+    "finish": "完成检测",
+    "analyzing": "分析中",
+    "login": "登录"
+  },
+  "card": {
+    "autoAnalyze": "轻敲后自动分析",
+    "description": "识别声音频率，评估西瓜甜度",
+    "sweetnessIndex": "甜度指数"
+  },
+  "status": {
+    "tapToStart": "轻敲西瓜开始检测",
+    "recording": "正在听，敲完点完成",
+    "analyzing": "正在分析敲瓜声",
+    "tryAgain": "可以再测一次"
+  }
+}

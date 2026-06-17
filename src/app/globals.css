@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #1a5d3f;
+  --color-soft-ink: #4a7a62;
+  --color-bg-top: #f0fdf6;
+  --color-bg-mid: #e0f7fa;
+  --color-bg-bottom: #fff8e1;
+  --color-mint: #d8fae8;
+  --color-aqua: #b2ebf2;
+  --color-lemon: #fff2a8;
+  --color-rind: #2e7d32;
+  --color-deep-rind: #1b5e20;
+  --color-flesh: #ff7a8a;
+  --color-flesh-dark: #ff5c70;
+  --color-seed: #3e2723;
+  --color-paper: rgba(255, 255, 255, 0.86);
+  --color-line: rgba(27, 94, 32, 0.1);
+  --font-heading: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  min-height: 100svh;
+  color: var(--color-ink);
+  background:
+    radial-gradient(ellipse at 20% 10%, rgba(178, 235, 242, 0.5) 0%, transparent 45%),
+    radial-gradient(ellipse at 85% 20%, rgba(255, 242, 168, 0.45) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 95%, rgba(255, 255, 255, 0.8) 0%, transparent 50%),
+    linear-gradient(180deg, var(--color-bg-top) 0%, var(--color-bg-mid) 42%, var(--color-bg-bottom) 100%);
+  font-family: var(--font-body);
+}
+
+button {
+  border: 0;
+  color: inherit;
+  font: inherit;
+  background: none;
+}
