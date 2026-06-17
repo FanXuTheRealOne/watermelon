@@ -1,0 +1,15 @@
+{
+  "name": "听瓜",
+  "short_name": "听瓜",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0fdf6",
+  "theme_color": "#b2ebf2",
+  "icons": [
+    {
+      "src": "/assets/watermelon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
