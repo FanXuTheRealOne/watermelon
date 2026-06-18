@@ -18,14 +18,14 @@ export function WaveBar({ mode, samples }: WaveBarProps) {
 
   if (mode === "recording") {
     return (
-      <div className="relative z-10 flex h-16 items-center justify-center">
+      <div className="relative z-10 flex h-16 items-center justify-center [@media(max-height:700px)]:h-12">
         <canvas ref={canvasRef} width={320} height={72} className="h-full w-full" />
       </div>
     );
   }
 
   return (
-    <div className="relative z-10 flex h-10 items-center justify-center gap-1">
+    <div className="relative z-10 flex h-10 items-center justify-center gap-1 [@media(max-height:700px)]:h-8">
       {Array.from({ length: 30 }).map((_, i) => (
         <motion.span
           key={i}

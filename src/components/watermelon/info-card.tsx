@@ -6,8 +6,8 @@ interface InfoCardProps {
 
 export function InfoCard({ score }: InfoCardProps) {
   return (
-    <Card className="relative z-10 grid grid-cols-[auto_1fr_auto] items-center gap-4">
-      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#e8f5e9] to-[#c8e6c9] shadow-sm">
+    <Card className="relative z-10 grid grid-cols-[auto_1fr_auto] items-center gap-3 p-4 [@media(max-height:700px)]:p-3">
+      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-[#e8f5e9] to-[#c8e6c9] shadow-sm [@media(max-height:700px)]:h-10 [@media(max-height:700px)]:w-10">
         <svg viewBox="0 0 48 48" className="h-7 w-7">
           <rect x="8" y="20" width="4" height="16" rx="2" fill="#66bb6a" />
           <rect x="16" y="14" width="4" height="22" rx="2" fill="#66bb6a" />
@@ -16,9 +16,11 @@ export function InfoCard({ score }: InfoCardProps) {
           <rect x="40" y="22" width="4" height="14" rx="2" fill="#66bb6a" />
         </svg>
       </div>
-      <div>
+      <div className="min-w-0">
         <h2 className="text-base font-extrabold text-[var(--color-ink)]">轻敲后自动分析</h2>
-        <p className="mt-1 text-sm text-[var(--color-soft-ink)]">识别声音频率，评估西瓜甜度</p>
+        <p className="mt-1 text-sm text-[var(--color-soft-ink)] [@media(max-height:700px)]:hidden">
+          识别声音频率，评估西瓜甜度
+        </p>
       </div>
       <div className="text-right">
         <span className="block text-xs font-extrabold text-[var(--color-flesh-dark)]">甜度指数</span>

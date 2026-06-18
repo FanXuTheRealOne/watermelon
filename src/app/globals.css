@@ -32,7 +32,8 @@ html {
 }
 
 body {
-  min-height: 100svh;
+  min-height: 100dvh;
+  overflow-x: hidden;
   color: var(--color-ink);
   background:
     radial-gradient(ellipse at 20% 10%, rgba(178, 235, 242, 0.5) 0%, transparent 45%),

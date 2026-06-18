@@ -74,7 +74,7 @@ export function WatermelonAnalyzer() {
   };
 
   return (
-    <main className="relative mx-auto flex min-h-svh w-full max-w-md flex-col gap-4 px-5 pb-6 pt-6">
+    <main className="relative mx-auto flex min-h-dvh w-full max-w-md flex-col gap-2.5 overflow-x-hidden px-4 pb-[calc(env(safe-area-inset-bottom)+1rem)] pt-[calc(env(safe-area-inset-top)+1rem)] [@media(max-height:700px)]:gap-2 [@media(max-height:700px)]:pb-[calc(env(safe-area-inset-bottom)+0.75rem)] [@media(max-height:700px)]:pt-[calc(env(safe-area-inset-top)+0.75rem)]">
       <Decorations />
       <Header aiUsed={result?.aiUsed ?? false} />
       <MelonStage mode={mode} hint={error || hint} />

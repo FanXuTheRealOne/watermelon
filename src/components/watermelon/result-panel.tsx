@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MetricCard } from "./metric-card";
 import type { AnalysisResponse } from "@/lib/api";
 
 interface ResultPanelProps {
@@ -43,16 +44,5 @@ export function ResultPanel({ result }: ResultPanelProps) {
         </CardContent>
       </Card>
     </motion.div>
-  );
-}
-
-function MetricCard({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-xl border border-[rgba(27,94,32,0.08)] bg-white/65 p-3 text-center">
-      <span className="block text-xs font-bold text-[var(--color-soft-ink)]">{label}</span>
-      <strong className="mt-1 block text-sm font-extrabold tabular-nums text-[var(--color-ink)]">
-        {value}
-      </strong>
-    </div>
   );
 }

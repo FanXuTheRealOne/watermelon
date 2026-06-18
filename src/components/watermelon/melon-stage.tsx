@@ -11,9 +11,9 @@ export function MelonStage({ mode, hint }: MelonStageProps) {
   const isActive = mode === "recording" || mode === "analyzing";
 
   return (
-    <section className="relative z-10 flex flex-col items-center pt-2">
+    <section className="relative z-10 flex flex-col items-center pt-1 [@media(max-height:700px)]:pt-0">
       <motion.p
-        className="mb-2 flex items-center gap-2.5 text-sm font-extrabold text-[var(--color-deep-rind)]"
+        className="mb-2 flex items-center gap-2.5 text-sm font-extrabold text-[var(--color-deep-rind)] [@media(max-height:700px)]:mb-1 [@media(max-height:700px)]:text-xs"
         animate={{ opacity: [0.85, 1, 0.85], y: [0, -2, 0] }}
         transition={{ duration: 2.2, repeat: Infinity }}
       >
@@ -22,7 +22,7 @@ export function MelonStage({ mode, hint }: MelonStageProps) {
         <span className="inline-block h-0.5 w-4 rounded-full bg-[var(--color-flesh)]" />
       </motion.p>
 
-      <div className="relative flex h-[280px] w-[280px] items-center justify-center">
+      <div className="relative flex h-[clamp(210px,35dvh,280px)] w-[clamp(210px,72vw,280px)] items-center justify-center [@media(max-height:700px)]:h-[clamp(190px,32dvh,230px)] [@media(max-height:700px)]:w-[clamp(190px,62vw,230px)]">
         {[1, 2, 3].map((i) => (
           <motion.span
             key={i}
