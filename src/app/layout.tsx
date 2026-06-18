@@ -26,6 +26,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
+      <head>
+        {process.env.NODE_ENV === "development" && (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.ReactNativeWebView = window.ReactNativeWebView || { postMessage: function() {} };
+              `,
+            }}
+          />
+        )}
+      </head>
       <body className="antialiased">
         <I18nProvider>
           <EazoProvider>

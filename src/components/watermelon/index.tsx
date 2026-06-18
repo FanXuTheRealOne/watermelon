@@ -65,22 +65,13 @@ export function WatermelonAnalyzer() {
     else startRecording();
   };
 
-  if (loading) {
-    return (
-      <main className="flex min-h-svh items-center justify-center">
-        <p className="text-[var(--color-soft-ink)]">加载中…</p>
-      </main>
-    );
-  }
-
-  if (!user) {
-    return (
-      <main className="flex min-h-svh flex-col items-center justify-center gap-4 px-6">
-        <p className="text-[var(--color-soft-ink)]">请先登录后继续</p>
-        <Button onClick={() => auth.login().catch(() => undefined)}>登录</Button>
-      </main>
-    );
-  }
+  const handleActionClick = () => {
+    if (!user) {
+      auth.login().catch(() => undefined);
+      return;
+    }
+    toggleRecording();
+  };
 
   return (
     <main className="relative mx-auto flex min-h-svh w-full max-w-md flex-col gap-4 px-5 pb-6 pt-6">
@@ -89,7 +80,7 @@ export function WatermelonAnalyzer() {
       <MelonStage mode={mode} hint={error || hint} />
       <WaveBar mode={mode} samples={samples} />
       <CopyBlock />
-      <ActionButton mode={mode} onClick={toggleRecording} />
+      <ActionButton mode={mode} disabled={loading} onClick={handleActionClick} />
       <InfoCard score={result?.score ?? null} />
       {result && <ResultPanel result={result} />}
     </main>

@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@source "../../src/**/*.{js,ts,jsx,tsx}";
+
 @theme {
   --color-ink: #1a5d3f;
   --color-soft-ink: #4a7a62;

@@ -1,4 +1,4 @@
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and } from "drizzle-orm";
 import { db } from "../client";
 import { analyses, type NewAnalysis } from "../schema/analyses";
 
@@ -20,8 +20,7 @@ export async function getAnalysisById(id: number, userId: string) {
   const [analysis] = await db
     .select()
     .from(analyses)
-    .where(eq(analyses.id, id))
-    .where(eq(analyses.userId, userId))
+    .where(and(eq(analyses.id, id), eq(analyses.userId, userId)))
     .limit(1);
   return analysis || null;
 }
